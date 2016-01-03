@@ -6,7 +6,7 @@
 		<child link="LowerHead"/>
 		<origin xyz="0.0035 0 0.1115" rpy="0 0 0"/>
 		<axis xyz="0 0 1"/>
-		<limit lower="-1.22173048" upper="1.22173048" effort="2.5" velocity="5.759586525"/>
+		<limit lower="-2.6179939" upper="2.6179939" effort="2.5" velocity="5.759586525"/>
 	</joint>
 	<link name="LowerHead">
 		<xacro:visuals_collisions_lower_head/>
@@ -20,7 +20,7 @@
 		<parent link="LowerHead"/>
 		<child link="UpperHeadBase"/>
 		<origin xyz="-0.01 0 0.049" rpy="0 0 0"/>
-		<axis xyz="0 1 0"/>
+		<axis xyz="0 -1 0"/>
 		<limit upper="0.4" lower="-0.25" effort="2.5" velocity="5.759586525"/>
 	</joint>
 	<link name="UpperHeadBase">
@@ -36,7 +36,7 @@
 		<child link="UpperHeadMotor"/>
 		<origin xyz="-0.00225 0 0.046" rpy="0 0 0"/>
 		<axis xyz="0 1 0"/>
-		<mimic joint="HeadPitch" multiplier="-1.0"/>
+		<mimic joint="HeadPitch" multiplier="1.0"/>
 	</joint>
 	<link name="UpperHeadMotor">
 		<xacro:visuals_collisions_upper_head_motor/>
@@ -51,7 +51,7 @@
 		<child link="UpperHeadBack"/>
 		<origin xyz="-0.0525 0 0.021" rpy="0 0 0"/>
 		<axis xyz="0 1 0"/>
-		<mimic joint="HeadPitch" multiplier="0.65"/>
+		<mimic joint="HeadPitch" multiplier="-0.65"/>
 	</joint>
 	<link name="UpperHeadBack">
 		<xacro:visuals_collisions_upper_head_back/>
@@ -61,6 +61,40 @@
 			<inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
 		</inertial>
 	</link>
+
+<!-- Camera properties -->
+<xacro:property name="pi" value="3.1415926535897931" />
+
+<!-- openni2 / primesense on top of servo -->
+<joint name="camera_rgb_joint" type="fixed">
+	<parent link="UpperHeadBase" />
+	<child link="camera_rgb_optical_frame" />
+	<origin xyz="0.0 0.0 0.08" rpy="${pi/2} ${pi} ${pi/2}" />
+</joint>
+<link name="camera_rgb_optical_frame" />
+
+<joint name="camera_depth_joint" type="fixed">
+	<parent link="UpperHeadBase" />
+	<child link="camera_depth_optical_frame" />
+	<origin xyz="0.0 0.0 0.08" rpy="${pi/2} ${pi} ${pi/2}" />
+</joint>
+<link name="camera_depth_optical_frame" />
+
+<joint name="camera_depth_frame" type="fixed">
+	<parent link="UpperHeadBase" />
+	<child link="camera_depth_frame_link" />
+	<origin xyz="0.0 0.0 0.08" />
+</joint>
+
+<link name="camera_depth_frame_link" />
+
+<!-- intel r200 on front of servo -->
+<joint name="r200_frame" type="fixed">
+	<parent link="UpperHeadBase" />
+	<child link="realsense_frame" />
+	<origin xyz="0.05 -0.05 0.05" rpy="${pi/2} ${pi} ${pi/2}" />
+</joint>
+<link name="realsense_frame" />
 
 <!-- ROS REP LINKS -->
 	<joint name="gaze_joint" type="fixed">

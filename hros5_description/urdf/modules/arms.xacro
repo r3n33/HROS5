@@ -6,7 +6,7 @@
 			<parent link="torso"/>
 			<child link="${side}Shoulder"/>
 			<origin xyz="0.003 ${reflect*0.0675} 0.084" rpy="0 0 0"/>
-			<axis xyz="0 1 0"/>
+			<axis xyz="0 ${reflect*1} 0"/>
 			<limit lower="-3.14159265" upper="3.14159265" effort="6.0" velocity="6.597344565"/>
 		</joint>
 		<link name="${side}Shoulder">
@@ -42,7 +42,7 @@
 		<parent link="LShoulder"/>
 		<child link="LUpperArm"/>
 		<origin xyz="0.002 0.03 -0.03" rpy="${PI_2/2} 0 0"/>
-		<axis xyz="1 0 0"/>
+		<axis xyz="-1 0 0"/>
 		<limit lower="-2.35619449" upper="1.30899694" effort="6.0" velocity="6.597344565"/>
 	</joint>
 
@@ -50,7 +50,7 @@
 		<parent link="RShoulder"/>
 		<child link="RUpperArm"/>
 		<origin xyz="0.002 -0.03 -0.03" rpy="-${PI_2/2} 0 0"/>
-		<axis xyz="1 0 0"/>
+		<axis xyz="-1 0 0"/>
 		<limit lower="-1.30899694" upper="2.35619449" effort="6.0" velocity="6.597344565"/>
 	</joint>
 
@@ -58,7 +58,7 @@
 		<parent link="LUpperArm"/>
 		<child link="LLowerArm"/>
 		<origin xyz="0.03 -0.0015 -0.085" rpy="0 -${PI_2/2} 0"/>
-		<axis xyz="0 1 0"/>
+		<axis xyz="0 -1 0"/>
 		<limit lower="-1.22173048" upper="1.65806279" effort="6.0" velocity="6.597344565"/>
 	</joint>
 
